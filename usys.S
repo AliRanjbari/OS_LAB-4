@@ -33,3 +33,9 @@ SYSCALL(find_next_prime_num)
 SYSCALL(get_call_count)
 SYSCALL(get_most_caller)
 SYSCALL(wait_for_process)
+SYSCALL(sem_init)
+SYSCALL(sem_acquire)
+SYSCALL(sem_release)
+SYSCALL(multiple_acquire)
+
+

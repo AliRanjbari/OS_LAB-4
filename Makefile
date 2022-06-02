@@ -187,7 +187,7 @@ UPROGS=\
 	_get_most_caller\
 	_wait_for_process\
 	_get_pid\
-
+	_multiple_acquire\
 
 
 fs.img: mkfs README $(UPROGS)
@@ -259,7 +259,7 @@ EXTRA=\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c sort_string.c zombie.c\
 	find_next_prime_num.c get_call_count.c get_most_caller.c wait_for_process.c\
-	get_pid.c\
+	get_pid.c\ _multiple_acquire\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\

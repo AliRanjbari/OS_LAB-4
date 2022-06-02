@@ -107,6 +107,10 @@ extern int sys_find_next_prime_num(void);
 extern int sys_get_call_count(void);
 extern int sys_get_most_caller(void);
 extern int sys_wait_for_process(void);
+extern int sys_sem_init(void);
+extern int sys_sem_acquire(void);
+extern int sys_sem_release(void);
+extern int sys_multiple_acquire(void);
 
 
 
@@ -136,7 +140,10 @@ static int (*syscalls[])(void) = {
 [SYS_get_call_count] sys_get_call_count,
 [SYS_get_most_caller] sys_get_most_caller,
 [SYS_wait_for_process] sys_wait_for_process,
-
+[SYS_sem_init] sys_sem_init,
+[SYS_sem_acquire] sys_sem_acquire,
+[SYS_sem_release] sys_sem_release,
+[SYS_multiple_acquire] sys_multiple_acquire,
 };
 
 void

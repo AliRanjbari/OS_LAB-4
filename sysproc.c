@@ -133,3 +133,45 @@ sys_wait_for_process(void)
   wait_for_process(pid);
 
 }
+
+
+// semaphore operations
+
+int
+sys_sem_init(void)
+{
+  int i, v;
+  if(argint(0, &i) < 0 || argint(1, &v))
+    return -1;
+
+  return sem_init(i, v);
+
+}
+
+int
+sys_sem_acquire(void)
+{ 
+  int i;
+  if(argint(0, &i) < 0)
+    return -1;
+  return sem_acquire(i);
+}
+
+int
+sys_sem_release(void)
+{
+  int i;
+  if(argint(0, &i) < 0)
+    return -1;
+  return sem_release(i);
+}
+
+
+// multiple acquire
+void
+sys_multiple_acquire(void)
+{
+  int cnt;
+  argint(0, &cnt);
+  multiple_acquire(cnt);
+}

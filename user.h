@@ -27,6 +27,10 @@ int find_next_prime_num(int);
 int get_call_count(int);
 int get_most_caller(int);
 int wait_for_process(int);
+int sem_init(int, int);
+int sem_acquire(int);
+int sem_release(int);
+int multiple_acquire(int);
 
 
 // ulib.c

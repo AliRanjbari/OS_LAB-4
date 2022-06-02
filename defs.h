@@ -123,7 +123,11 @@ void            yield(void);
 int             find_next_prime_num(int);
 int             get_call_count(int);
 int             get_most_caller(int);
-void             wait_for_process(int);
+void            wait_for_process(int);
+int             sem_init(int, int);
+int             sem_acquire(int);
+int             sem_release(int);
+void            multiple_acquire(int);
 
 
 // swtch.S

@@ -599,3 +599,41 @@ wait_for_process(int pid)
       }
   }
 }
+
+
+// semaphore operations
+
+int
+sem_init(int i, int  v)
+{
+  return 0;
+}
+
+int
+sem_acquire(int i)
+{
+  return 0;
+}
+
+int
+sem_release(int i)
+{
+  return 0;
+}
+
+
+// multipke acquire
+
+void
+multiple_acquire(int cnt)
+{
+  if (cnt == 0)
+  {
+    release(&tickslock);
+    return;
+  }
+  cprintf("Acquiring... cnt = %d\n", cnt);
+  acquire(&tickslock);
+  multiple_acquire(cnt - 1);
+
+}
