@@ -12,6 +12,15 @@ struct {
   struct proc proc[NPROC];
 } ptable;
 
+
+struct semaphore {
+  int value;
+  struct spinlock lock;
+  struct proc* list[10];
+};
+
+struct semaphore semaphores[10];
+int indexes [10] = {0};
 static struct proc *initproc;
 
 int nextpid = 1;
@@ -19,6 +28,7 @@ extern void forkret(void);
 extern void trapret(void);
 
 static void wakeup1(void *chan);
+
 
 void
 pinit(void)
@@ -606,18 +616,45 @@ wait_for_process(int pid)
 int
 sem_init(int i, int  v)
 {
+  semaphores[i].value = v;
+  for(int j=0; j < 10; j++) {
+    semaphores[i].list[j] = 0;
+  }
+  initlock(&(semaphores[i].lock), (char*)i + '0');
   return 0;
 }
 
 int
 sem_acquire(int i)
 {
+  struct proc *curproc = myproc();
+  acquire(&(semaphores[i].lock));
+  semaphores[i].value -= 1;
+  if(semaphores[i].value < 0) {
+    for(int j =0; j < 10; j++) {
+      semaphores[i].list[j] = curproc;
+      break;
+    }
+    sleep(curproc, &(semaphores[i].lock));
+  }
+  release(&(semaphores[i].lock));
   return 0;
 }
 
 int
 sem_release(int i)
 {
+  acquire(&(semaphores[i].lock));
+  struct proc* p = 0;
+  semaphores[i].value += 1;
+  if(semaphores[i].value <= 0) {
+    p = semaphores[i].list[0];
+    for(int j=0; j<9; j++) {
+      semaphores[i].list[j] = semaphores[i].list[j+1];
+    }
+    wakeup(p);
+  }
+  release(&(semaphores[i].lock));
   return 0;
 }
 
